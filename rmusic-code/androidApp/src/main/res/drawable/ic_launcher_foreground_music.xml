@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- r/music launcher foreground: glossy crimson beamed double-note on transparent, sized for
+     the 108dp adaptive-icon viewport with the glyph inside the 66dp safe zone. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <group
+        android:translateX="19.0"
+        android:translateY="20.5"
+        android:scaleX="2.9"
+        android:scaleY="2.9">
+
+        <!-- Beam connecting the two stems (slanted, thick) -->
+        <path android:pathData="M9.4,5.6 L19.8,3.8 L19.8,7.0 L9.4,8.9 Z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:type="linear"
+                    android:startX="10" android:startY="4"
+                    android:endX="19" android:endY="9">
+                    <item android:offset="0.0" android:color="#FFF27A93" />
+                    <item android:offset="0.45" android:color="#FFC41E3A" />
+                    <item android:offset="1.0" android:color="#FF7C0B22" />
+                </gradient>
+            </aapt:attr>
+        </path>
+
+        <!-- Left stem -->
+        <path android:pathData="M9.4,5.7 L12.3,5.2 L12.3,18.2 L9.4,18.4 Z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:type="linear"
+                    android:startX="9" android:startY="5"
+                    android:endX="13" android:endY="19">
+                    <item android:offset="0.0" android:color="#FFE8617C" />
+                    <item android:offset="0.45" android:color="#FFB81733" />
+                    <item android:offset="1.0" android:color="#FF6E091D" />
+                </gradient>
+            </aapt:attr>
+        </path>
+
+        <!-- Right stem -->
+        <path android:pathData="M16.9,4.6 L19.8,4.1 L19.8,16.4 L16.9,16.6 Z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:type="linear"
+                    android:startX="16" android:startY="4"
+                    android:endX="20" android:endY="17">
+                    <item android:offset="0.0" android:color="#FFDD5570" />
+                    <item android:offset="0.45" android:color="#FFAF152F" />
+                    <item android:offset="1.0" android:color="#FF6A081B" />
+                </gradient>
+            </aapt:attr>
+        </path>
+
+        <!-- Left note head -->
+        <path android:pathData="M4.55,18.35 a3.05,2.5 -12,1,1 6.1,-0.6 a3.05,2.5 -12,1,1 -6.1,0.6 Z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:type="linear"
+                    android:startX="5" android:startY="15.5"
+                    android:endX="11" android:endY="21">
+                    <item android:offset="0.0" android:color="#FFF06E85" />
+                    <item android:offset="0.5" android:color="#FFBC1734" />
+                    <item android:offset="1.0" android:color="#FF700A1E" />
+                </gradient>
+            </aapt:attr>
+        </path>
+
+        <!-- Right note head -->
+        <path android:pathData="M13.85,16.55 a3.05,2.5 -12,1,1 6.1,-0.6 a3.05,2.5 -12,1,1 -6.1,0.6 Z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:type="linear"
+                    android:startX="14" android:startY="14"
+                    android:endX="20" android:endY="19.5">
+                    <item android:offset="0.0" android:color="#FFEA6580" />
+                    <item android:offset="0.5" android:color="#FFB51632" />
+                    <item android:offset="1.0" android:color="#FF6C091C" />
+                </gradient>
+            </aapt:attr>
+        </path>
+
+        <!-- Gloss highlights: specular streak along the beam + head glints -->
+        <path
+            android:fillColor="#59FFFFFF"
+            android:pathData="M10.15,6.35 L19.1,4.75 L19.1,5.65 L10.15,7.25 Z" />
+        <path
+            android:fillColor="#40FFFFFF"
+            android:pathData="M5.75,17.35 a1.5,1.0 -12,1,1 2.9,-0.3 a1.5,1.0 -12,1,1 -2.9,0.3 Z" />
+        <path
+            android:fillColor="#40FFFFFF"
+            android:pathData="M15.05,15.55 a1.5,1.0 -12,1,1 2.9,-0.3 a1.5,1.0 -12,1,1 -2.9,0.3 Z" />
+
+    </group>
+</vector>
