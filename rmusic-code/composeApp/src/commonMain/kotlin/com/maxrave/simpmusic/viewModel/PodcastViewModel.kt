@@ -257,7 +257,7 @@ class PodcastViewModel(
         viewModelScope.launch {
             podcastRepository.updatePodcastInLibraryNow(id).collectLatest {
                 // Podcast Ä‘Ã£ Ä‘Æ°á»£c cáº­p nháº­t trong thÆ° viá»‡n
-                val nowMs = Clock.System.now().toEpochMilliseconds()
+                val nowMs = com.maxrave.simpmusic.expect.currentTimeMillis()
                 log("Podcast $id updated in library at $nowMs")
             }
         }
@@ -352,5 +352,7 @@ class PodcastViewModel(
         }
     }
 }
+
+
 
 

@@ -988,7 +988,7 @@ class SharedViewModel(
             val updateChannel = dataStoreManager.updateChannel.first()
             dataStoreManager.putString(
                 "CheckForUpdateAt",
-                Clock.System.now().toEpochMilliseconds().toString(),
+                com.maxrave.simpmusic.expect.currentTimeMillis().toString(),
             )
             if (updateChannel == DataStoreManager.GITHUB) {
                 updateRepository.checkForGithubReleaseUpdate().collectLatest { response ->
@@ -2090,4 +2090,6 @@ sealed class VoteState {
         val message: String,
     ) : VoteState()
 }
+
+
 
