@@ -3,7 +3,7 @@ package com.maxrave.kotlinytmusicscraper.utils
 import com.maxrave.kotlinytmusicscraper.models.response.AudioData
 import com.maxrave.logger.Logger
 import kotlinx.serialization.json.Json
-import kotlinx.datetime.Clock
+
 import kotlin.io.encoding.Base64
 
 fun ByteArray.toHex(): String = joinToString(separator = "") { eachByte -> (eachByte.toInt() and 0xFF).toString(16).padStart(2, '0') }
@@ -35,6 +35,8 @@ fun String.parseTime(): Int? {
     return null
 }
 
+expect fun getCurrentTimeSeconds(): Long
+
 fun generateNetscapeCookies(
     cookies: Map<String, String>,
     domain: String = ".example.com",
@@ -43,7 +45,7 @@ fun generateNetscapeCookies(
     httpOnly: Boolean = false,
     expirationTimeSeconds: Long? = null,
 ): String {
-    val finalExpirationTime = expirationTimeSeconds ?: ((Clock.System.now().toEpochMilliseconds() / 1000) + 86400 * 365)
+    val finalExpirationTime = expirationTimeSeconds ?: (getCurrentTimeSeconds() + 86400L * 365L)
     val header =
         "# Netscape HTTP Cookie File\n" +
             "# This is a generated file! Do not edit.\n\n"
