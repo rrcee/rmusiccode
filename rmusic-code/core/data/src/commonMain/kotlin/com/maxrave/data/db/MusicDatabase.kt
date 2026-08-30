@@ -81,6 +81,7 @@ import com.maxrave.domain.data.entities.analytics.PlaybackEventEntity
     ],
 )
 @TypeConverters(Converters::class)
+@androidx.room.ConstructedBy(MusicDatabaseConstructor::class)
 abstract class MusicDatabase : RoomDatabase() {
     abstract fun getDatabaseDao(): DatabaseDao
 
@@ -106,3 +107,6 @@ abstract class MusicDatabase : RoomDatabase() {
 expect fun getDatabaseBuilder(converters: Converters): RoomDatabase.Builder<MusicDatabase>
 
 expect fun getDatabasePath(): String
+
+@Suppress("NO_ACTUAL_FOR_EXPECT")
+expect object MusicDatabaseConstructor : androidx.room.RoomDatabaseConstructor<MusicDatabase>
