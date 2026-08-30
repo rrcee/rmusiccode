@@ -1,0 +1,57 @@
+name: Build iOS IPA
+
+on:
+  push:
+    branches: [ "master", "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Generate Xcode Project
+        run: |
+          cd iosApp
+          xcodegen generate
+
+      - name: Build unsigned .app
+        run: |
+          cd iosApp
+          xcodebuild build \
+            -project iosApp.xcodeproj \
+            -scheme iosApp \
+            -configuration Release \
+            -sdk iphoneos \
+            -arch arm64 \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            CONFIGURATION_BUILD_DIR=../build/ios
+
+      - name: Package into IPA
+        run: |
+          cd build/ios
+          mkdir Payload
+          mv iosApp.app Payload/
+          zip -r SimpMusic.ipa Payload
+
+      - name: Upload IPA Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: SimpMusic-iOS
+          path: build/ios/SimpMusic.ipa
