@@ -106,7 +106,7 @@ class IosMediaPlayerHandlerImpl(
     private val coroutineScope: CoroutineScope,
 ) : MediaPlayerHandler,
     MediaPlayerListener {
-    private val backgroundScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+    private val backgroundScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
 
     // Linux (MPRIS) and Windows (SMTC) both go through NPYC/JMTC; macOS uses the
     // dedicated MacOSMediaIntegration below. runCatching keeps a failed native
@@ -693,10 +693,10 @@ class IosMediaPlayerHandlerImpl(
             )
         coroutineScope.launch {
             // nypc?.setButtonEnabled(
-                isPlaying = controlState.value.isPlaying,
-                canGoNext = controlState.value.isNextAvailable,
-                canGoPrevious = controlState.value.isPreviousAvailable,
-            )
+            //     isPlaying = controlState.value.isPlaying,
+            //     canGoNext = controlState.value.isNextAvailable,
+            //     canGoPrevious = controlState.value.isPreviousAvailable,
+            // )
         }
         updateMacOSCommandsEnabled()
     }
@@ -2717,18 +2717,18 @@ class IosMediaPlayerHandlerImpl(
     
     private fun updateMacOSNowPlayingInfo(songEntity: SongEntity) {
         // macOSMediaIntegration?.updateNowPlayingInfo(
-            NowPlayingInfo(
-                title = songEntity.title,
-                artist = songEntity.artistName?.connectArtists() ?: "Unknown Artist",
-                album = songEntity.albumName ?: "",
-                durationSeconds = getPlayerDuration() / 1000.0,
-                elapsedTimeSeconds = player.contentPosition / 1000.0,
-                playbackRate = 1.0,
-                artworkUrl = songEntity.thumbnails,
-                queueIndex = player.currentMediaItemIndex,
-                queueCount = queueData.value.data.listTracks.size,
-            ),
-        )
+        //     NowPlayingInfo(
+        //         title = songEntity.title,
+        //         artist = songEntity.artistName?.connectArtists() ?: "Unknown Artist",
+        //         album = songEntity.albumName ?: "",
+        //         durationSeconds = getPlayerDuration() / 1000.0,
+        //         elapsedTimeSeconds = player.contentPosition / 1000.0,
+        //         playbackRate = 1.0,
+        //         artworkUrl = songEntity.thumbnails,
+        //         queueIndex = player.currentMediaItemIndex,
+        //         queueCount = queueData.value.data.listTracks.size,
+        //     ),
+        // )
 
         // Update remote command buttons enabled state
         updateMacOSCommandsEnabled()
@@ -2757,10 +2757,10 @@ class IosMediaPlayerHandlerImpl(
         val hasPrevious = _controlState.value.isPreviousAvailable
         val canSeek = getPlayerDuration() > 0
         // macOSMediaIntegration?.updateCommandsEnabled(
-            hasNext = hasNext,
-            hasPrevious = hasPrevious,
-            canSeek = canSeek,
-        )
+        //     hasNext = hasNext,
+        //     hasPrevious = hasPrevious,
+        //     canSeek = canSeek,
+        // )
     }
 
     /**

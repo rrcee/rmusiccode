@@ -4,10 +4,12 @@ import com.maxrave.domain.data.player.GenericMediaItem
 import com.maxrave.domain.data.player.GenericPlaybackParameters
 import com.maxrave.domain.mediaservice.player.MediaPlayerInterface
 import com.maxrave.domain.mediaservice.player.MediaPlayerListener
-import platform.AVFoundation.AVPlayer
-import platform.AVFoundation.play
-import platform.AVFoundation.pause
+import platform.CoreMedia.*
+import platform.AVFoundation.*
 
+import kotlinx.cinterop.ExperimentalForeignApi
+
+@OptIn(ExperimentalForeignApi::class)
 class IOSMediaPlayer : MediaPlayerInterface {
     private val player = AVPlayer()
     private val listeners = mutableListOf<MediaPlayerListener>()
@@ -79,9 +81,9 @@ class IOSMediaPlayer : MediaPlayerInterface {
     }
 
     private fun loadCurrentItem() {
-        val current = currentMediaItem
-        if (current?.uri != null) {
-            val url = platform.Foundation.NSURL.URLWithString(current.uri)
+        val uri = currentMediaItem?.uri
+        if (uri != null) {
+            val url = platform.Foundation.NSURL.URLWithString(uri)
             if (url != null) {
                 val item = platform.AVFoundation.AVPlayerItem(uRL = url)
                 player.replaceCurrentItemWithPlayerItem(item)
