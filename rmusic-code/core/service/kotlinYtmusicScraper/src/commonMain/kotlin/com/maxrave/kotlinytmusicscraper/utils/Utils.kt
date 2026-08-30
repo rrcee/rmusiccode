@@ -6,7 +6,7 @@ import kotlinx.serialization.json.Json
 import kotlinx.datetime.Clock
 import kotlin.io.encoding.Base64
 
-fun ByteArray.toHex(): String = joinToString(separator = "") { eachByte -> "%02x".format(eachByte) }
+fun ByteArray.toHex(): String = joinToString(separator = "") { eachByte -> (eachByte.toInt() and 0xFF).toString(16).padStart(2, '0') }
 
 expect fun sha1(str: String): String
 
@@ -41,7 +41,7 @@ fun generateNetscapeCookies(
     path: String = "/",
     secure: Boolean = false,
     httpOnly: Boolean = false,
-    expirationTimeSeconds: Long = Clock.System.now().epochSeconds + 86400 * 365,
+    expirationTimeSeconds: Long = (Clock.System.now().toEpochMilliseconds() / 1000) + 86400 * 365,
 ): String {
     val header =
         "# Netscape HTTP Cookie File\n" +
