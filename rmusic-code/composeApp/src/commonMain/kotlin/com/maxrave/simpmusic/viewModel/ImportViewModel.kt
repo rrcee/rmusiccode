@@ -44,7 +44,7 @@ class ImportViewModel(
                 _importState.value = ImportProgress.Preparing
                 val invalidFileMessage = getString(Res.string.import_invalid_file)
                 val json =
-                    withContext(Dispatchers.IO) {
+                    withContext(Dispatchers.Default) {
                         runCatching { file.readByteArray(context).decodeToString() }
                     }.getOrElse { throwable ->
                         log("import: cannot read picked file - ${throwable.message}")

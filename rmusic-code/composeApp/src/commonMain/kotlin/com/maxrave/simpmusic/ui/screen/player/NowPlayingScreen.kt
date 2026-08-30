@@ -110,7 +110,7 @@ import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.StrokeCap
-import androidx.compose.ui.graphics.asImageBitmap
+
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.graphicsLayer
 import com.maxrave.simpmusic.expect.ui.rememberDeviceTilt
@@ -161,7 +161,7 @@ import com.maxrave.simpmusic.extension.parseTimestampToMilliseconds
 import com.maxrave.simpmusic.extension.rememberIsInPipMode
 import com.maxrave.simpmusic.extension.smoothScrimBrush
 import com.maxrave.simpmusic.getPlatform
-import com.maxrave.media3.cast.toWebVtt
+import com.maxrave.simpmusic.expect.toWebVtt
 import com.maxrave.simpmusic.ui.component.AIBadge
 import com.maxrave.simpmusic.ui.component.AddToPlaylistModalBottomSheet
 import com.maxrave.simpmusic.ui.component.AnimatedMeshBackdrop
@@ -797,7 +797,7 @@ fun NowPlayingScreenContent(
     LaunchedEffect(screenDataState.lyricsData?.lyrics) {
         val vtt = screenDataState.lyricsData?.lyrics.toWebVtt()
         val mediaId = sharedViewModel.nowPlayingState.value?.mediaItem?.mediaId
-        com.maxrave.media3.cast.LyricsVttServer.update(mediaId, vtt)
+        com.maxrave.simpmusic.expect.updateLyricsVtt(mediaId, vtt)
     }
     Box(
         modifier = Modifier
