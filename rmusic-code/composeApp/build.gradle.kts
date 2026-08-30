@@ -98,6 +98,7 @@ kotlin {
             } else {
                 implementation(projects.castEmpty)
             }
+            api(libs.coil.network.okhttp)
         }
         commonMain.dependencies {
             implementation(libs.runtime)
@@ -112,9 +113,6 @@ kotlin {
             // Compose
             implementation(libs.compose.material3.adaptive)
             implementation(libs.compose.material.ripple)
-
-            implementation(libs.ui.tooling.preview)
-
             // Other module
             api(projects.common)
             api(projects.domain)
@@ -137,7 +135,6 @@ kotlin {
 
             // Coil
             api(libs.coil.compose)
-            api(libs.coil.network.okhttp)
             api(libs.kmpalette.core)
             api(libs.kmpalette.network)
             implementation(libs.materialkolor)
@@ -181,6 +178,10 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
+        iosMain.dependencies {
+            api(libs.coil.network.ktor)
+            implementation(libs.ktor.client.darwin)
+        }
         jvmMain.dependencies {
             // Desktop app entry (main.kt), jpackage/Conveyor
             // packaging, and tray icon live in :desktopApp per the
@@ -193,6 +194,7 @@ kotlin {
             implementation(projects.mediaJvmUi)
             implementation(projects.mediaJvm)
             implementation(projects.castEmpty)
+            api(libs.coil.network.okhttp)
         }
     }
 }
