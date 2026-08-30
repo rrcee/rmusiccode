@@ -1,4 +1,4 @@
-package com.maxrave.simpmusic.expect.ui
+﻿package com.maxrave.simpmusic.expect.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -228,7 +228,7 @@ actual fun MediaPlayerView(
 
                 view.layer.addSublayer(playerLayer)
 
-                player.play()
+                player?.play()
             }
             view
         },

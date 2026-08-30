@@ -1,4 +1,4 @@
-package com.maxrave.simpmusic.expect
+﻿package com.maxrave.simpmusic.expect
 
 import com.maxrave.domain.data.model.metadata.Lyrics
 import com.maxrave.media3.cast.LyricsVttServer
@@ -8,4 +8,5 @@ actual fun updateLyricsVtt(mediaId: String?, vtt: String?) {
     LyricsVttServer.update(mediaId, vtt)
 }
 
-actual fun Lyrics?.toWebVtt(): String? = this.media3ToWebVtt()
+actual fun toWebVtt(lyrics: Lyrics?): String? = lyrics.media3ToWebVtt()
+

@@ -795,7 +795,7 @@ fun NowPlayingScreenContent(
     // Cast lyrics: convert synced lyrics to WebVTT and hand them to the LAN server so the
     // Chromecast receiver can load them as a timed text track (captions = lyric lines).
     LaunchedEffect(screenDataState.lyricsData?.lyrics) {
-        val vtt = screenDataState.lyricsData.toWebVtt()
+        val vtt = toWebVtt(screenDataState.lyricsData)
         val mediaId = sharedViewModel.nowPlayingState.value?.mediaItem?.mediaId
         com.maxrave.simpmusic.expect.updateLyricsVtt(mediaId, vtt)
     }
