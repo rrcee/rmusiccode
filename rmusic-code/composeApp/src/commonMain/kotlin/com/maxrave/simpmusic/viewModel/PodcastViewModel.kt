@@ -1,4 +1,4 @@
-package com.maxrave.simpmusic.viewModel
+﻿package com.maxrave.simpmusic.viewModel
 
 import androidx.lifecycle.viewModelScope
 import com.maxrave.common.Config
@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.datetime.Clock
+import kotlinx.datetime.Clock.System
 import simpmusic.composeapp.generated.resources.Res
 import simpmusic.composeapp.generated.resources.share_url
 
@@ -84,12 +84,12 @@ class PodcastViewModel(
         _isFavorite.value = false
         _uiState.value = PodcastUIState.Loading
         viewModelScope.launch {
-            // Kiểm tra xem có PodcastEntity trong database không
+            // Kiá»ƒm tra xem cÃ³ PodcastEntity trong database khÃ´ng
             podcastRepository.getPodcast(id).collectLatest { entity ->
                 _podcastEntity.value = entity
                 _isFavorite.value = entity?.isFavorite == true
 
-                // Tải dữ liệu từ API
+                // Táº£i dá»¯ liá»‡u tá»« API
                 podcastRepository.getPodcastData(id).collectLatest { resource ->
                     when (resource) {
                         is Resource.Success -> {
@@ -102,7 +102,7 @@ class PodcastViewModel(
 
                                 val podcastEntity = podcastRepository.getPodcast(id).firstOrNull()
                                 if (podcastEntity == null) {
-                                    // Lưu podcast vào database
+                                    // LÆ°u podcast vÃ o database
                                     savePodcastToDatabase(id, podcastBrowse)
                                 } else {
                                     _podcastEntity.value = podcastEntity
@@ -113,9 +113,9 @@ class PodcastViewModel(
                         }
 
                         is Resource.Error -> {
-                            // Nếu đã có dữ liệu trong database, sử dụng dữ liệu đó
+                            // Náº¿u Ä‘Ã£ cÃ³ dá»¯ liá»‡u trong database, sá»­ dá»¥ng dá»¯ liá»‡u Ä‘Ã³
                             if (_podcastEntity.value != null) {
-                                // Lấy episodes từ database
+                                // Láº¥y episodes tá»« database
                                 podcastRepository.getPodcastWithEpisodes(id).first()?.let { podcastWithEpisodes ->
                                     val episodes =
                                         podcastWithEpisodes.episodes.map { episode ->
@@ -171,7 +171,7 @@ class PodcastViewModel(
         podcastBrowse: PodcastBrowse,
     ) {
         viewModelScope.launch {
-            // Lưu podcast
+            // LÆ°u podcast
             val podcastEntity =
                 PodcastsEntity(
                     podcastId = id,
@@ -191,7 +191,7 @@ class PodcastViewModel(
                 _podcastEntity.value = podcastEntity
             }
 
-            // Lưu episodes
+            // LÆ°u episodes
             val episodes =
                 podcastBrowse.listEpisode.map { episode ->
                     EpisodeEntity(
@@ -208,7 +208,7 @@ class PodcastViewModel(
                 }
 
             podcastRepository.insertEpisodes(episodes).firstOrNull()?.let {
-                // Episodes đã được lưu
+                // Episodes Ä‘Ã£ Ä‘Æ°á»£c lÆ°u
             }
             _podcastEntity.value = podcastRepository.getPodcast(id).firstOrNull()
         }
@@ -248,7 +248,7 @@ class PodcastViewModel(
                 }
 
             podcastRepository.insertEpisodes(episodes).collectLatest {
-                // Episodes đã được cập nhật
+                // Episodes Ä‘Ã£ Ä‘Æ°á»£c cáº­p nháº­t
             }
         }
     }
@@ -256,8 +256,9 @@ class PodcastViewModel(
     fun updatePodcastInLibraryNow(id: String) {
         viewModelScope.launch {
             podcastRepository.updatePodcastInLibraryNow(id).collectLatest {
-                // Podcast đã được cập nhật trong thư viện
-                log("Podcast $id updated in library at ${kotlinx.datetime.Clock.System.now().toEpochMilliseconds()}")
+                // Podcast Ä‘Ã£ Ä‘Æ°á»£c cáº­p nháº­t trong thÆ° viá»‡n
+                val nowMs = System.now().toEpochMilliseconds()
+                log("Podcast $id updated in library at $nowMs")
             }
         }
     }
@@ -351,3 +352,4 @@ class PodcastViewModel(
         }
     }
 }
+

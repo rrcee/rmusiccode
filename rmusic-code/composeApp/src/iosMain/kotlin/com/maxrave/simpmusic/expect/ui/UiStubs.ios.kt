@@ -1,4 +1,4 @@
-﻿package com.maxrave.simpmusic.expect.ui
+package com.maxrave.simpmusic.expect.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -20,9 +20,7 @@ import com.maxrave.domain.data.model.streams.TimeLine
 import kotlinx.cinterop.ExperimentalForeignApi
 import org.jetbrains.skia.EncodedImageFormat
 import org.jetbrains.skia.Image.Companion.makeFromEncoded
-import platform.AVFoundation.AVPlayer
-import platform.AVFoundation.AVPlayerItem
-import platform.AVFoundation.AVPlayerLayer
+import platform.AVFoundation.*
 import platform.CoreGraphics.CGRectMake
 import platform.Foundation.NSURL
 import platform.Foundation.NSURLRequest
@@ -228,7 +226,7 @@ actual fun MediaPlayerView(
 
                 view.layer.addSublayer(playerLayer)
 
-                player?.play()
+                player.play()
             }
             view
         },
@@ -318,3 +316,4 @@ actual fun HorizontalScrollBar(
     modifier: Modifier,
     scrollState: LazyListState,
 ) {}
+

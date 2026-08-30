@@ -1,4 +1,4 @@
-package com.maxrave.simpmusic.viewModel
+﻿package com.maxrave.simpmusic.viewModel
 
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.lifecycle.viewModelScope
@@ -106,7 +106,7 @@ import simpmusic.composeapp.generated.resources.updated
 import simpmusic.composeapp.generated.resources.vote_submitted
 import okio.FileSystem
 import okio.Path.Companion.toPath
-import kotlinx.datetime.Clock
+import kotlinx.datetime.Clock.System
 import kotlin.math.abs
 import kotlin.reflect.KClass
 
@@ -988,7 +988,7 @@ class SharedViewModel(
             val updateChannel = dataStoreManager.updateChannel.first()
             dataStoreManager.putString(
                 "CheckForUpdateAt",
-                Clock.System.now().toEpochMilliseconds().toString(),
+                System.now().toEpochMilliseconds().toString(),
             )
             if (updateChannel == DataStoreManager.GITHUB) {
                 updateRepository.checkForGithubReleaseUpdate().collectLatest { response ->
@@ -1062,7 +1062,7 @@ class SharedViewModel(
             )
 
         if (isTranslatedLyrics && lyricsProvider != LyricsProvider.AI) {
-            // Skip sync validation for AI translations — timestamps are copied programmatically
+            // Skip sync validation for AI translations â€” timestamps are copied programmatically
             val originalLyrics = _nowPlayingScreenData.value.lyricsData?.lyrics
             val originalLines = originalLyrics?.lines
             val lyricsLines = lyrics.lines
@@ -2000,7 +2000,7 @@ sealed class UIEvent {
     data object Previous : UIEvent()
 
     /**
-     * Always advances to the previous track — bypasses the 3-second
+     * Always advances to the previous track â€” bypasses the 3-second
      * "seek to start of current track" rule used by [Previous]. Used by the
      * NowPlaying artwork pager swipe.
      */
