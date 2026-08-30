@@ -106,7 +106,7 @@ import simpmusic.composeapp.generated.resources.updated
 import simpmusic.composeapp.generated.resources.vote_submitted
 import okio.FileSystem
 import okio.Path.Companion.toPath
-import kotlinx.datetime.Clock.System
+import kotlinx.datetime.Clock
 import kotlin.math.abs
 import kotlin.reflect.KClass
 
@@ -988,7 +988,7 @@ class SharedViewModel(
             val updateChannel = dataStoreManager.updateChannel.first()
             dataStoreManager.putString(
                 "CheckForUpdateAt",
-                System.now().toEpochMilliseconds().toString(),
+                Clock.System.now().toEpochMilliseconds().toString(),
             )
             if (updateChannel == DataStoreManager.GITHUB) {
                 updateRepository.checkForGithubReleaseUpdate().collectLatest { response ->
@@ -2090,3 +2090,4 @@ sealed class VoteState {
         val message: String,
     ) : VoteState()
 }
+
