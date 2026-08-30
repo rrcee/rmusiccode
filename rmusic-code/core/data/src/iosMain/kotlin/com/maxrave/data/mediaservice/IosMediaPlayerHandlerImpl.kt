@@ -90,7 +90,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import org.koin.mp.KoinPlatform.getKoin
-import java.util.concurrent.atomic.AtomicLong
+
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.pow
@@ -253,7 +253,7 @@ class IosMediaPlayerHandlerImpl(
     // suspend-resume interleaving) and conflated through a single sender (rpcSenderJob), which drops
     // any snapshot older than the last one it handled and drops snapshots while playback isn't active
     // (per controlState.isPlaying) so a stale in-flight send can't resurrect presence after pause/close.
-    private val rpcEventSeq = AtomicLong(0L)
+    private var rpcEventSeq = 0L
 
     private data class RpcSnapshot(
         val song: SongEntity,
@@ -265,7 +265,7 @@ class IosMediaPlayerHandlerImpl(
 
     private val rpcSnapshotFlow = MutableStateFlow<RpcSnapshot?>(null)
 
-    @Volatile
+    
     private var rpcSenderJob: Job? = null
 
     private val json =
@@ -692,7 +692,7 @@ class IosMediaPlayerHandlerImpl(
                 isPreviousAvailable = player.hasPreviousMediaItem(),
             )
         coroutineScope.launch {
-            nypc?.setButtonEnabled(
+            // nypc?.setButtonEnabled(
                 isPlaying = controlState.value.isPlaying,
                 canGoNext = controlState.value.isNextAvailable,
                 canGoPrevious = controlState.value.isPreviousAvailable,
@@ -2329,7 +2329,7 @@ class IosMediaPlayerHandlerImpl(
 
     override fun release() {
         Logger.w("ServiceHandler", "Starting release process")
-        nypc?.removeListener()
+        // nypc?.removeListener()
         // Release macOS media integration
         clearMacOSNowPlayingInfo()
         
@@ -2553,7 +2553,7 @@ class IosMediaPlayerHandlerImpl(
             // Grab the sequence number as the FIRST statement — before any suspension point — so it
             // reflects true event order. A monotonic counter (not wall-clock time) so an NTP/manual
             // clock step backward can't freeze the ordering guard in the sender (Fix A).
-            val seq = rpcEventSeq.incrementAndGet()
+            val seq = ++rpcEventSeq
             val snapshot =
                 RpcSnapshot(
                     song = song,
@@ -2716,7 +2716,7 @@ class IosMediaPlayerHandlerImpl(
      */
     
     private fun updateMacOSNowPlayingInfo(songEntity: SongEntity) {
-        macOSMediaIntegration?.updateNowPlayingInfo(
+        // macOSMediaIntegration?.updateNowPlayingInfo(
             NowPlayingInfo(
                 title = songEntity.title,
                 artist = songEntity.artistName?.connectArtists() ?: "Unknown Artist",
@@ -2737,7 +2737,7 @@ class IosMediaPlayerHandlerImpl(
         val artworkUrl = songEntity.thumbnails
         if (!artworkUrl.isNullOrEmpty()) {
             coroutineScope.launch {
-                macOSMediaIntegration?.loadAndSetArtwork(artworkUrl)
+                // macOSMediaIntegration?.loadAndSetArtwork(artworkUrl)
             }
         }
     }
@@ -2746,7 +2746,7 @@ class IosMediaPlayerHandlerImpl(
      * Update macOS Now Playing playback state
      */
     private fun updateMacOSPlaybackState(isPlaying: Boolean) {
-        macOSMediaIntegration?.updatePlaybackState(isPlaying)
+        // macOSMediaIntegration?.updatePlaybackState(isPlaying)
     }
 
     /**
@@ -2756,7 +2756,7 @@ class IosMediaPlayerHandlerImpl(
         val hasNext = _controlState.value.isNextAvailable
         val hasPrevious = _controlState.value.isPreviousAvailable
         val canSeek = getPlayerDuration() > 0
-        macOSMediaIntegration?.updateCommandsEnabled(
+        // macOSMediaIntegration?.updateCommandsEnabled(
             hasNext = hasNext,
             hasPrevious = hasPrevious,
             canSeek = canSeek,
@@ -2767,7 +2767,7 @@ class IosMediaPlayerHandlerImpl(
      * Update macOS Now Playing elapsed time (called periodically)
      */
     private fun updateMacOSElapsedTime() {
-        macOSMediaIntegration?.updateElapsedTime(player.currentPosition / 1000.0, 1.0)
+        // macOSMediaIntegration?.updateElapsedTime(player.currentPosition / 1000.0, 1.0)
     }
 
     /**

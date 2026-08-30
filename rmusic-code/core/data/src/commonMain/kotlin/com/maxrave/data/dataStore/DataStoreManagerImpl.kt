@@ -42,7 +42,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setAppVersion(version: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[APP_VERSION] = version
             }
@@ -55,7 +55,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun openApp() {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[OPEN_APP_TIME] = openAppTime.first() + 1
             }
@@ -63,7 +63,7 @@ internal class DataStoreManagerImpl(
     }
 
     override suspend fun resetOpenAppTime() {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[OPEN_APP_TIME] = 0
             }
@@ -71,7 +71,7 @@ internal class DataStoreManagerImpl(
     }
 
     override suspend fun doneOpenAppTime() {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[OPEN_APP_TIME] = 31
             }
@@ -84,7 +84,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setLocation(location: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[LOCATION] = location
             }
@@ -97,7 +97,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setMoodAndGenresCache(json: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[MOOD_AND_GENRES_CACHE] = json
             }
@@ -110,7 +110,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setMoodArtworkCache(json: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[MOOD_ARTWORK_CACHE] = json
             }
@@ -123,7 +123,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setQuality(quality: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[QUALITY] = quality
             }
@@ -136,7 +136,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setDownloadQuality(quality: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[DOWNLOAD_QUALITY] = quality
             }
@@ -149,7 +149,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setVideoDownloadQuality(quality: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[VIDEO_DOWNLOAD_QUALITY] = quality
             }
@@ -194,7 +194,7 @@ internal class DataStoreManagerImpl(
         cookie: String,
         pageId: String?,
     ) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[COOKIE] = cookie
                 settings[PAGE_ID] = pageId ?: ""
@@ -203,7 +203,7 @@ internal class DataStoreManagerImpl(
     }
 
     override suspend fun setLoggedIn(logged: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (logged) {
                 settingsDataStore.edit { settings ->
                     settings[LOGGED_IN] = TRUE
@@ -222,7 +222,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setNormalizeVolume(normalize: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (normalize) {
                 settingsDataStore.edit { settings ->
                     settings[NORMALIZE_VOLUME] = TRUE
@@ -241,7 +241,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setSkipSilent(skip: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (skip) {
                 settingsDataStore.edit { settings ->
                     settings[SKIP_SILENT] = TRUE
@@ -260,7 +260,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setSaveStateOfPlayback(save: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (save) {
                 settingsDataStore.edit { settings ->
                     settings[SAVE_STATE_OF_PLAYBACK] = TRUE
@@ -286,7 +286,7 @@ internal class DataStoreManagerImpl(
         shuffle: Boolean,
         repeat: Int,
     ) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (shuffle) {
                 settingsDataStore.edit { settings ->
                     settings[SHUFFLE_KEY] = TRUE
@@ -314,7 +314,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setSaveRecentSongAndQueue(save: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (save) {
                 settingsDataStore.edit { settings ->
                     settings[SAVE_RECENT_SONG] = TRUE
@@ -341,7 +341,7 @@ internal class DataStoreManagerImpl(
         position: Long,
     ) {
         Logger.w("saveRecentSong", "$mediaId $position")
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[RECENT_SONG_MEDIA_ID_KEY] = mediaId
                 settings[RECENT_SONG_POSITION_KEY] = position.toString()
@@ -355,7 +355,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setPlaylistFromSaved(playlist: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[FROM_SAVED_PLAYLIST] = playlist
             }
@@ -368,7 +368,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setSendBackToGoogle(send: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (send) {
                 settingsDataStore.edit { settings ->
                     settings[SEND_BACK_TO_GOOGLE] = TRUE
@@ -387,7 +387,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setSponsorBlockEnabled(enabled: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (enabled) {
                 settingsDataStore.edit { settings ->
                     settings[SPONSOR_BLOCK_ENABLED] = TRUE
@@ -409,7 +409,7 @@ internal class DataStoreManagerImpl(
     }
 
     override suspend fun setSponsorBlockCategories(categories: ArrayList<String>) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             Logger.w("setSponsorBlockCategories", categories.toString())
             for (category in categories) {
                 settingsDataStore.edit { settings ->
@@ -430,7 +430,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setEnableTranslateLyric(enable: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (enable) {
                 settingsDataStore.edit { settings ->
                     settings[USE_TRANSLATION_LANGUAGE] = TRUE
@@ -449,7 +449,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setLyricsProvider(provider: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[LYRICS_PROVIDER] = provider
             }
@@ -468,7 +468,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setTranslationLanguage(language: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[TRANSLATION_LANGUAGE] = language
             }
@@ -481,7 +481,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setMaxSongCacheSize(size: Int) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[MAX_SONG_CACHE_SIZE] = size
             }
@@ -494,7 +494,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setWatchVideoInsteadOfPlayingAudio(watch: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (watch) {
                 settingsDataStore.edit { settings ->
                     settings[WATCH_VIDEO_INSTEAD_OF_PLAYING_AUDIO] = TRUE
@@ -513,7 +513,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setRadioAudioOnly(audioOnly: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[RADIO_AUDIO_ONLY] = if (audioOnly) TRUE else FALSE
             }
@@ -526,7 +526,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setPlayerVolume(volume: Float) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[PLAYER_VOLUME] = volume.coerceIn(0f, 1f)
             }
@@ -539,7 +539,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setVideoQuality(quality: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[VIDEO_QUALITY] = quality
             }
@@ -552,7 +552,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setSpdc(spdc: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[SPDC] = spdc
             }
@@ -565,7 +565,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setEqualizerEnabled(enabled: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[EQUALIZER_ENABLED] = if (enabled) TRUE else FALSE
             }
@@ -578,7 +578,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setEqualizerBands(bandsDb: List<Float>) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 // Blank when flat, so "no equalizer" and "an equalizer set to zero" are the same
                 // stored state and neither installs a filter chain.
@@ -594,7 +594,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setEqualizerPreamp(preampDb: Float) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[EQUALIZER_PREAMP] = preampDb.toString()
             }
@@ -607,7 +607,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setSyncFollowToYouTube(enabled: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[SYNC_FOLLOW_TO_YOUTUBE] = if (enabled) TRUE else FALSE
             }
@@ -620,7 +620,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setSpotifyLyrics(spotifyLyrics: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (spotifyLyrics) {
                 settingsDataStore.edit { settings ->
                     settings[SPOTIFY_LYRICS] = TRUE
@@ -639,7 +639,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setSpotifyCanvas(spotifyCanvas: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (spotifyCanvas) {
                 settingsDataStore.edit { settings ->
                     settings[SPOTIFY_CANVAS] = TRUE
@@ -658,7 +658,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setSpotifyClientToken(token: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[SPOTIFY_CLIENT_TOKEN] = token
             }
@@ -671,7 +671,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setSpotifyClientTokenExpires(expires: Long) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[SPOTIFY_CLIENT_TOKEN_EXPIRES] = expires
             }
@@ -687,7 +687,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setTidalClientId(value: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[TIDAL_CLIENT_ID] = value
             }
@@ -700,7 +700,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setTidalClientSecret(value: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[TIDAL_CLIENT_SECRET] = value
             }
@@ -713,7 +713,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setSpotifyPersonalToken(token: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[SPOTIFY_PERSONAL_TOKEN] = token
             }
@@ -726,7 +726,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setSpotifyPersonalTokenExpires(expires: Long) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[SPOTIFY_PERSONAL_TOKEN_EXPIRES] = expires
             }
@@ -739,7 +739,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setHomeLimit(limit: Int) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[HOME_LIMIT] = limit
             }
@@ -752,7 +752,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setChartKey(key: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[CHART_KEY] = key
             }
@@ -765,7 +765,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setTranslucentBottomBar(translucent: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (translucent) {
                 settingsDataStore.edit { settings ->
                     settings[TRANSLUCENT_BOTTOM_BAR] = TRUE
@@ -784,7 +784,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setThemeMode(mode: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[THEME_MODE] = mode
             }
@@ -797,7 +797,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setThemeColorSource(source: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[THEME_COLOR_SOURCE] = source
             }
@@ -810,7 +810,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setCustomThemeColor(argbHex: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[CUSTOM_THEME_COLOR] = argbHex
             }
@@ -823,7 +823,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setUsingProxy(usingProxy: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (usingProxy) {
                 settingsDataStore.edit { settings ->
                     settings[USING_PROXY] = TRUE
@@ -849,7 +849,7 @@ internal class DataStoreManagerImpl(
             }
 
     override suspend fun setProxyType(proxyType: DataStoreManager.ProxyType) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[PROXY_TYPE] =
                     when (proxyType) {
@@ -866,7 +866,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setProxyHost(proxyHost: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[PROXY_HOST] = proxyHost
             }
@@ -879,7 +879,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setProxyPort(proxyPort: Int) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[PROXY_PORT] = proxyPort
             }
@@ -892,7 +892,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setProxyUsername(proxyUsername: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[PROXY_USERNAME] = proxyUsername
             }
@@ -905,7 +905,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setProxyPassword(proxyPassword: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[PROXY_PASSWORD] = proxyPassword
             }
@@ -943,7 +943,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setEndlessQueue(endlessQueue: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (endlessQueue) {
                 settingsDataStore.edit { settings ->
                     settings[ENDLESS_QUEUE] = TRUE
@@ -962,7 +962,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setKeepYouTubePlaylistOffline(keep: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (keep) {
                 settingsDataStore.edit { settings ->
                     settings[KEEP_YOUTUBE_PLAYLIST_OFFLINE] = TRUE
@@ -981,7 +981,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setCombineLocalAndYouTubeLiked(combine: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (combine) {
                 settingsDataStore.edit { settings ->
                     settings[COMBINE_LOCAL_AND_YOUTUBE_LIKED] = TRUE
@@ -1000,7 +1000,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setShouldShowLogInRequiredAlert(shouldShow: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (shouldShow) {
                 settingsDataStore.edit { settings ->
                     settings[SHOULD_SHOW_LOG_IN_REQUIRED_ALERT] = TRUE
@@ -1019,7 +1019,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setAutoCheckForUpdates(autoCheck: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (autoCheck) {
                 settingsDataStore.edit { settings ->
                     settings[AUTO_CHECK_FOR_UPDATES] = TRUE
@@ -1038,7 +1038,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setUpdateChannel(channel: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[UPDATE_CHANNEL] = channel
             }
@@ -1077,7 +1077,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setDataSyncId(dataSyncId: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[DATA_SYNC_ID] = dataSyncId
             }
@@ -1090,7 +1090,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setVisitorData(visitorData: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[VISITOR_DATA] = visitorData
             }
@@ -1098,7 +1098,7 @@ internal class DataStoreManagerImpl(
     }
 
     override suspend fun setAIProvider(provider: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[stringPreferencesKey("ai_provider")] = provider
             }
@@ -1111,7 +1111,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setAIApiKey(apiKey: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[AI_API_KEY] = apiKey
             }
@@ -1129,7 +1129,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setUseAITranslation(use: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (use) {
                 settingsDataStore.edit { settings ->
                     settings[USE_AI_TRANSLATION] = TRUE
@@ -1148,7 +1148,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setCustomModelId(modelId: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[CUSTOM_MODEL_ID] = modelId
             }
@@ -1161,7 +1161,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setCustomOpenAIBaseUrl(baseUrl: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[CUSTOM_OPENAI_BASE_URL] = baseUrl
             }
@@ -1174,7 +1174,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setCustomOpenAIHeaders(headers: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[CUSTOM_OPENAI_HEADERS] = headers
             }
@@ -1187,7 +1187,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setLocalPlaylistFilter(filter: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[LOCAL_PLAYLIST_FILTER] = filter
             }
@@ -1200,7 +1200,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setKillServiceOnExit(kill: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (kill) {
                 settingsDataStore.edit { settings ->
                     settings[KILL_SERVICE_ON_EXIT] = TRUE
@@ -1219,7 +1219,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setKeepServiceAlive(keep: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (keep) {
                 settingsDataStore.edit { settings ->
                     settings[KEEP_SERVICE_ALIVE] = TRUE
@@ -1238,7 +1238,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setCrossfadeEnabled(enabled: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (enabled) {
                 settingsDataStore.edit { settings ->
                     settings[CROSSFADE_ENABLED] = TRUE
@@ -1257,7 +1257,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setCrossfadeDuration(duration: Int) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[CROSSFADE_DURATION] = duration
             }
@@ -1270,7 +1270,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setCrossfadeDjMode(enabled: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[CROSSFADE_DJ_MODE] = if (enabled) TRUE else FALSE
             }
@@ -1285,7 +1285,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setCrossfadeSkipAlbum(enabled: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[CROSSFADE_SKIP_ALBUM] = if (enabled) TRUE else FALSE
             }
@@ -1299,7 +1299,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setAutoDownloadLikedSongs(enabled: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[AUTO_DOWNLOAD_LIKED_SONGS] = if (enabled) TRUE else FALSE
             }
@@ -1318,7 +1318,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setYoutubeSubtitleLanguage(language: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[YOUTUBE_SUBTITLE_LANGUAGE] = language
             }
@@ -1331,7 +1331,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setHelpBuildLyricsDatabase(help: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (help) {
                 settingsDataStore.edit { settings ->
                     settings[HELP_BUILD_LYRICS_DATABASE] = TRUE
@@ -1357,7 +1357,7 @@ internal class DataStoreManagerImpl(
     override suspend fun setContributorLyricsDatabase(
         contributor: Pair<String, String>?, // contributor name and email, null if anonymous
     ) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 if (contributor == null) {
                     settings[CONTRIBUTOR_NAME] = ""
@@ -1376,7 +1376,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setBackupDownloaded(backupDownloaded: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (backupDownloaded) {
                 settingsDataStore.edit { settings ->
                     settings[BACKUP_DOWNLOADED] = TRUE
@@ -1396,7 +1396,7 @@ internal class DataStoreManagerImpl(
             }
 
     override suspend fun setEnableLiquidGlass(enable: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (enable) {
                 settingsDataStore.edit { settings ->
                     settings[LIQUID_GLASS] = TRUE
@@ -1416,7 +1416,7 @@ internal class DataStoreManagerImpl(
             }
 
     override suspend fun setReactToDeviceTilt(enable: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (enable) {
                 settingsDataStore.edit { settings ->
                     settings[REACT_TO_DEVICE_TILT] = TRUE
@@ -1436,7 +1436,7 @@ internal class DataStoreManagerImpl(
             }
 
     override suspend fun setDumEMode(enable: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (enable) {
                 settingsDataStore.edit { settings ->
                     settings[DUM_E_MODE] = TRUE
@@ -1455,7 +1455,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setExplicitContentEnabled(enabled: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             if (enabled) {
                 settingsDataStore.edit { settings ->
                     settings[EXPLICIT_CONTENT_ENABLED] = TRUE
@@ -1474,7 +1474,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setDiscordToken(token: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[DISCORD_TOKEN] = token
             }
@@ -1487,7 +1487,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setRichPresenceEnabled(enabled: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[RICH_PRESENCE] = if (enabled) TRUE else FALSE
             }
@@ -1515,7 +1515,7 @@ internal class DataStoreManagerImpl(
         sessionKey: String,
         username: String,
     ) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[LASTFM_SESSION_KEY] = sessionKey
                 settings[LASTFM_USERNAME] = if (sessionKey.isEmpty()) "" else username
@@ -1529,7 +1529,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setLastfmScrobbleEnabled(enabled: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[LASTFM_SCROBBLE_ENABLED] = if (enabled) TRUE else FALSE
             }
@@ -1542,7 +1542,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setLocalTrackingEnabled(enabled: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[LOCAL_TRACKING_ENABLED] = if (enabled) TRUE else FALSE
             }
@@ -1555,7 +1555,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setBlogNotificationEnabled(enabled: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[BLOG_NOTIFICATION_ENABLED] = if (enabled) TRUE else FALSE
             }
@@ -1569,7 +1569,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setAutoBackupEnabled(enabled: Boolean) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[AUTO_BACKUP_ENABLED] = if (enabled) TRUE else FALSE
             }
@@ -1582,7 +1582,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setAutoBackupFrequency(frequency: String) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[AUTO_BACKUP_FREQUENCY] = frequency
             }
@@ -1595,7 +1595,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setAutoBackupMaxFiles(max: Int) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[AUTO_BACKUP_MAX_FILES] = max
             }
@@ -1608,7 +1608,7 @@ internal class DataStoreManagerImpl(
         }
 
     override suspend fun setAutoBackupLastTime(time: Long) {
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             settingsDataStore.edit { settings ->
                 settings[AUTO_BACKUP_LAST_TIME] = time
             }

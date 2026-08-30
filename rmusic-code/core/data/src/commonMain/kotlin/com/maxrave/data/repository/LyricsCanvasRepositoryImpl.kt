@@ -50,27 +50,27 @@ internal class LyricsCanvasRepositoryImpl(
     private val simpMusicLyrics: SimpMusicLyricsClient,
     private val aiClient: AiClient,
 ) : LyricsCanvasRepository {
-    override fun getSavedLyrics(videoId: String): Flow<LyricsEntity?> = flow { emit(localDataSource.getSavedLyrics(videoId)) }.flowOn(Dispatchers.IO)
+    override fun getSavedLyrics(videoId: String): Flow<LyricsEntity?> = flow { emit(localDataSource.getSavedLyrics(videoId)) }.flowOn(Dispatchers.Default)
 
     override suspend fun insertLyrics(lyricsEntity: LyricsEntity) =
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             localDataSource.insertLyrics(lyricsEntity)
         }
 
     override suspend fun insertTranslatedLyrics(translatedLyrics: TranslatedLyricsEntity) =
-        withContext(Dispatchers.IO) {
+        withContext(Dispatchers.Default) {
             localDataSource.insertTranslatedLyrics(translatedLyrics)
         }
 
     override fun getSavedTranslatedLyrics(
         videoId: String,
         language: String,
-    ): Flow<TranslatedLyricsEntity?> = flow { emit(localDataSource.getTranslatedLyrics(videoId, language)) }.flowOn(Dispatchers.IO)
+    ): Flow<TranslatedLyricsEntity?> = flow { emit(localDataSource.getTranslatedLyrics(videoId, language)) }.flowOn(Dispatchers.Default)
 
     override suspend fun removeTranslatedLyrics(
         videoId: String,
         language: String,
-    ) = withContext(Dispatchers.IO) {
+    ) = withContext(Dispatchers.Default) {
         localDataSource.removeTranslatedLyrics(videoId, language)
     }
 
@@ -93,7 +93,7 @@ internal class LyricsCanvasRepositoryImpl(
                         emit(Resource.Error<Pair<Lyrics, Lyrics?>>(e.message.toString()))
                     }
             }
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(Dispatchers.Default)
 
     override fun getCanvas(
         dataStoreManager: DataStoreManager,
@@ -226,19 +226,19 @@ internal class LyricsCanvasRepositoryImpl(
                     }
                 }
             }
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(Dispatchers.Default)
 
     override suspend fun updateCanvasUrl(
         videoId: String,
         canvasUrl: String,
-    ) = withContext(Dispatchers.IO) {
+    ) = withContext(Dispatchers.Default) {
         localDataSource.updateCanvasUrl(videoId, canvasUrl)
     }
 
     override suspend fun updateCanvasThumbUrl(
         videoId: String,
         canvasThumbUrl: String,
-    ) = withContext(Dispatchers.IO) {
+    ) = withContext(Dispatchers.Default) {
         localDataSource.updateCanvasThumbUrl(videoId, canvasThumbUrl)
     }
 
@@ -401,7 +401,7 @@ internal class LyricsCanvasRepositoryImpl(
                     it.printStackTrace()
                     emit(Resource.Error<Lyrics>("Not found"))
                 }
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(Dispatchers.Default)
 
     override fun getBetterLyrics(
         artist: String,
@@ -445,7 +445,7 @@ internal class LyricsCanvasRepositoryImpl(
                     it.printStackTrace()
                     emit(Resource.Error<Lyrics>("BetterLyrics search failed"))
                 }
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(Dispatchers.Default)
 
     override fun getArtistLogo(artistName: String): Flow<Resource<ArtistLogo>> =
         flow {
@@ -487,7 +487,7 @@ internal class LyricsCanvasRepositoryImpl(
                 }.onFailure {
                     emit(Resource.Error<ArtistLogo>(it.message ?: "Artist search failed"))
                 }
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(Dispatchers.Default)
 
     override fun getAITranslationLyrics(
         lyrics: Lyrics,
@@ -506,7 +506,7 @@ internal class LyricsCanvasRepositoryImpl(
                         emit(Resource.Error<Lyrics>("Translation failed"))
                     }
             }
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(Dispatchers.Default)
 
     // SimpMusic Lyrics
     private val simpMusicLyricsTag = "SimpMusicLyricsRepository"
@@ -545,7 +545,7 @@ internal class LyricsCanvasRepositoryImpl(
                     Logger.e(simpMusicLyricsTag, "Get Lyrics Error: ${it.message}")
                     emit(Resource.Error<Lyrics>(it.message ?: "Failed to get lyrics"))
                 }
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(Dispatchers.Default)
 
     override fun getSimpMusicTranslatedLyrics(
         videoId: String,
@@ -573,7 +573,7 @@ internal class LyricsCanvasRepositoryImpl(
                     Logger.e(simpMusicLyricsTag, "Get Translated Lyrics Error: ${it.message}")
                     emit(Resource.Error<Lyrics>(it.message ?: "Failed to get translated lyrics"))
                 }
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(Dispatchers.Default)
 
     override fun voteSimpMusicLyrics(
         lyricsId: String,
@@ -589,7 +589,7 @@ internal class LyricsCanvasRepositoryImpl(
                     Logger.e(simpMusicLyricsTag, "Vote Lyrics Error: ${it.message}")
                     emit(Resource.Error<String>(it.message ?: "Failed to vote lyrics"))
                 }
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(Dispatchers.Default)
 
     override fun voteSimpMusicTranslatedLyrics(
         translatedLyricsId: String,
@@ -605,7 +605,7 @@ internal class LyricsCanvasRepositoryImpl(
                     Logger.e(simpMusicLyricsTag, "Vote Translated Lyrics Error: ${it.message}")
                     emit(Resource.Error<String>(it.message ?: "Failed to vote translated lyrics"))
                 }
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(Dispatchers.Default)
 
     override fun insertSimpMusicLyrics(
         dataStoreManager: DataStoreManager,
@@ -657,7 +657,7 @@ internal class LyricsCanvasRepositoryImpl(
                     Logger.e(simpMusicLyricsTag, "Insert Lyrics Error: ${it.message}")
                     emit(Resource.Error<String>(it.message ?: "Failed to insert lyrics"))
                 }
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(Dispatchers.Default)
 
     override fun insertSimpMusicTranslatedLyrics(
         dataStoreManager: DataStoreManager,
@@ -690,5 +690,5 @@ internal class LyricsCanvasRepositoryImpl(
                     Logger.e(simpMusicLyricsTag, "Insert Translated Lyrics Error: ${it.message}")
                     emit(Resource.Error<String>(it.message ?: "Failed to insert translated lyrics"))
                 }
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(Dispatchers.Default)
 }

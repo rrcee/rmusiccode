@@ -33,10 +33,10 @@ internal fun parseAlbumData(data: AlbumPage): AlbumBrowse {
                     },
                 duration =
                     if (songItem.duration != null) {
-                        "%02d:%02d".format(
-                            (songItem.duration ?: 0) / 60,
-                            (songItem.duration ?: 0) % 60,
-                        )
+                        val duration = songItem.duration ?: 0
+                        val minutes = duration / 60
+                        val secs = duration % 60
+                        "${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}"
                     } else {
                         ""
                     },

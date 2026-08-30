@@ -27,9 +27,9 @@ internal class UpdateRepositoryImpl(
                         ),
                     )
                 }.onFailure {
-                    emit(Resource.Error<UpdateData>(it.localizedMessage ?: "Unknown error"))
+                    emit(Resource.Error<UpdateData>(it.message ?: "Unknown error"))
                 }
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(Dispatchers.Default)
 
     override fun checkForFdroidUpdate(): Flow<Resource<UpdateData>> =
         flow {
@@ -51,7 +51,7 @@ internal class UpdateRepositoryImpl(
                         ),
                     )
                 }.onFailure {
-                    emit(Resource.Error<UpdateData>(it.localizedMessage ?: "Unknown error"))
+                    emit(Resource.Error<UpdateData>(it.message ?: "Unknown error"))
                 }
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(Dispatchers.Default)
 }
