@@ -2331,7 +2331,7 @@ class IosMediaPlayerHandlerImpl(
         Logger.w("ServiceHandler", "Starting release process")
         // nypc?.removeListener()
         // Release macOS media integration
-        clearMacOSNowPlayingInfo()
+        // clearMacOSNowPlayingInfo()
         
         try {
             
