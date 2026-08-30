@@ -7,9 +7,10 @@ targets:
     platform: iOS
     deploymentTarget: "15.0"
     sources: [iosApp]
+    info:
+      path: iosApp/Info.plist
     settings:
       base:
-        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ENABLE_PREVIEWS: YES
         ENABLE_BITCODE: NO
         FRAMEWORK_SEARCH_PATHS: 
@@ -26,3 +27,4 @@ targets:
     dependencies:
       - framework: ../composeApp/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)/ComposeApp.framework
         embed: true
+
