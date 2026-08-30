@@ -41,8 +41,9 @@ fun generateNetscapeCookies(
     path: String = "/",
     secure: Boolean = false,
     httpOnly: Boolean = false,
-    expirationTimeSeconds: Long = (Clock.System.now().toEpochMilliseconds() / 1000) + 86400 * 365,
+    expirationTimeSeconds: Long? = null,
 ): String {
+    val finalExpirationTime = expirationTimeSeconds ?: ((Clock.System.now().toEpochMilliseconds() / 1000) + 86400 * 365)
     val header =
         "# Netscape HTTP Cookie File\n" +
             "# This is a generated file! Do not edit.\n\n"
@@ -60,7 +61,7 @@ fun generateNetscapeCookies(
                     append("\t")
                     append(if (secure) "TRUE" else "FALSE")
                     append("\t")
-                    append(expirationTimeSeconds)
+                    append(finalExpirationTime)
                     append("\t")
                     append(name)
                     append("\t")
