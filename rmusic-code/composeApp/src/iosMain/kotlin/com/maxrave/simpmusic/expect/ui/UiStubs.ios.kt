@@ -14,6 +14,31 @@ import androidx.compose.ui.text.TextStyle
 import coil3.Image
 import com.maxrave.domain.data.model.metadata.Lyrics
 import com.maxrave.domain.data.model.streams.TimeLine
+import androidx.compose.ui.interop.UIKitView
+import platform.WebKit.WKWebView
+import platform.WebKit.WKNavigationDelegateProtocol
+import platform.WebKit.WKNavigation
+import platform.Foundation.NSURL
+import platform.Foundation.NSURLRequest
+import platform.darwin.NSObject
+import kotlinx.cinterop.ExperimentalForeignApi
+import platform.CoreGraphics.CGRectMake
+import platform.UIKit.UIDocumentPickerViewController
+import platform.UIKit.UIDocumentPickerDelegateProtocol
+import platform.UIKit.UIModalPresentationFormSheet
+import platform.UIKit.UIApplication
+import platform.AVFoundation.AVPlayerLayer
+import platform.AVFoundation.AVPlayer
+import platform.AVFoundation.AVPlayerItem
+import platform.UIKit.UIView
+import platform.UIKit.UIColor
+import kotlinx.cinterop.CValue
+import platform.UIKit.UIImagePickerController
+import platform.UIKit.UIImagePickerControllerDelegateProtocol
+import platform.UIKit.UINavigationControllerDelegateProtocol
+import platform.UIKit.UIImagePickerControllerSourceType
+import platform.UIKit.UIImage
+import platform.UIKit.UIAccessibilityIsReduceMotionEnabled
 
 import org.jetbrains.skia.Image.Companion.makeFromEncoded
 import androidx.compose.ui.graphics.toComposeImageBitmap
@@ -40,15 +65,15 @@ actual fun PlatformCastButton(
     // No-op for iOS stub
 }
 
-import androidx.compose.ui.interop.UIKitView
-import platform.WebKit.WKWebView
-import platform.WebKit.WKNavigationDelegateProtocol
-import platform.WebKit.WKNavigation
-import platform.Foundation.NSURL
-import platform.Foundation.NSURLRequest
-import platform.darwin.NSObject
-import kotlinx.cinterop.ExperimentalForeignApi
-import platform.CoreGraphics.CGRectMake
+
+
+
+
+
+Request
+
+
+
 
 class DummyWebViewCookieManager : WebViewCookieManager {
     override fun getCookie(url: String): String = ""
@@ -120,10 +145,10 @@ actual fun DiscordWebView(
     }
 }
 
-import platform.UIKit.UIDocumentPickerViewController
-import platform.UIKit.UIDocumentPickerDelegateProtocol
-import platform.UIKit.UIModalPresentationFormSheet
-import platform.UIKit.UIApplication
+
+
+
+
 
 class IOSFilePickerLauncher(
     private val mimeType: String,
@@ -204,12 +229,12 @@ actual fun fileSaverResult(
     onResultUri: (String?) -> Unit,
 ): FilePickerLauncher = remember { IOSFileSaverLauncher(fileName, mimeType, onResultUri) }
 
-import platform.AVFoundation.AVPlayerLayer
-import platform.AVFoundation.AVPlayer
-import platform.AVFoundation.AVPlayerItem
-import platform.UIKit.UIView
-import platform.UIKit.UIColor
-import kotlinx.cinterop.CValue
+
+
+Item
+
+
+
 
 @OptIn(ExperimentalForeignApi::class)
 @Composable
@@ -275,11 +300,11 @@ class DummyOpenEqLauncher : OpenEqLauncher {
 @Composable
 actual fun openEqResult(audioSessionId: Int): OpenEqLauncher = DummyOpenEqLauncher()
 
-import platform.UIKit.UIImagePickerController
-import platform.UIKit.UIImagePickerControllerDelegateProtocol
-import platform.UIKit.UINavigationControllerDelegateProtocol
-import platform.UIKit.UIImagePickerControllerSourceType
-import platform.UIKit.UIImage
+
+DelegateProtocol
+
+SourceType
+
 
 class IOSPhotoPickerLauncher(
     private val onResultUri: (String?) -> Unit
@@ -323,7 +348,7 @@ actual fun isWallpaperDynamicColorSupported(): Boolean = false
 @Composable
 actual fun SystemBarAppearanceEffect(isDark: Boolean) {}
 
-import platform.UIKit.UIAccessibilityIsReduceMotionEnabled
+
 
 @Composable
 actual fun systemAnimationsEnabled(): Boolean = !UIAccessibilityIsReduceMotionEnabled()

@@ -13,10 +13,7 @@ import coil3.request.crossfade
 import okio.FileSystem
 import okio.Path.Companion.toPath
 
-fun MainViewController() = ComposeUIViewController { App() }
-
-fun initApp() {
-    initKoin()
+fun MainViewController() = ComposeUIViewController {
     setSingletonImageLoaderFactory { context ->
         ImageLoader.Builder(context)
             .components {
@@ -33,4 +30,9 @@ fun initApp() {
             .crossfade(true)
             .build()
     }
+    App()
+}
+
+fun initApp() {
+    initKoin()
 }

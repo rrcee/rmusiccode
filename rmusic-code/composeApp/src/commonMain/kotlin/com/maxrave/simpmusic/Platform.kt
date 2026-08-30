@@ -5,11 +5,9 @@ sealed class Platform {
     object iOS : Platform()
     object Desktop : Platform()
 
-    fun osName(): String = when (this) {
-        Android -> "android"
-        iOS -> "iOS"
-        Desktop -> System.getProperty("os.name") ?: "jvm"
-    }
+    fun osName(): String = platformName
 }
+
+expect val platformName: String
 
 expect fun getPlatform(): Platform
