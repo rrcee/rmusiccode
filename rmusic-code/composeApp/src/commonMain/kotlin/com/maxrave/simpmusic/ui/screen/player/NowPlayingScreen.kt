@@ -795,7 +795,7 @@ fun NowPlayingScreenContent(
     // Cast lyrics: convert synced lyrics to WebVTT and hand them to the LAN server so the
     // Chromecast receiver can load them as a timed text track (captions = lyric lines).
     LaunchedEffect(screenDataState.lyricsData?.lyrics) {
-        val vtt = screenDataState.lyricsData?.lyrics.toWebVtt()
+        val vtt = screenDataState.lyricsData.toWebVtt()
         val mediaId = sharedViewModel.nowPlayingState.value?.mediaItem?.mediaId
         com.maxrave.simpmusic.expect.updateLyricsVtt(mediaId, vtt)
     }
@@ -1497,7 +1497,7 @@ fun NowPlayingScreenContent(
                     actions = {
                         // Cast to nearby devices (Default Media Receiver). Renders nothing on
                         // builds/devices without Cast support.
-                        org.simpmusic.cast.CastIconButton(
+                        PlatformCastButton(
                             modifier = Modifier.size(32.dp),
                             tint = Color.White,
                         )
@@ -2465,7 +2465,7 @@ fun NowPlayingScreenContent(
                                         text =
                                             stringResource(
                                                 Res.string.view_count,
-                                                "%,d".format(screenDataState.songInfoData?.viewCount),
+                                                (screenDataState.songInfoData?.viewCount?.toString() ?: "0"),
                                             ),
                                         style = typo().labelMedium,
                                         color = Color.White,
