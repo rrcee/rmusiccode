@@ -268,6 +268,7 @@ actual fun MediaPlayerViewWithSubtitle(
 
 class DummyOpenEqLauncher : OpenEqLauncher {
     override fun launch() {}
+}
 
 @Composable
 actual fun openEqResult(audioSessionId: Int): OpenEqLauncher = DummyOpenEqLauncher()
@@ -324,6 +325,7 @@ actual fun HorizontalScrollBar(
     modifier: Modifier,
     scrollState: LazyListState,
 ) {}
+
 
 
 
