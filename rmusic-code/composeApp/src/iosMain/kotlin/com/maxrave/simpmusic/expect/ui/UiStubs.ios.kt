@@ -1,4 +1,4 @@
-package com.maxrave.simpmusic.expect.ui
+﻿package com.maxrave.simpmusic.expect.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -131,13 +131,28 @@ actual fun DiscordWebView(
 class IOSFilePickerLauncher(
     private val mimeType: String,
     private val onResultUri: (String?) -> Unit
-) : FilePickerLauncher, NSObject(), UIDocumentPickerDelegateProtocol {
+) : FilePickerLauncher {
+    
+    private val delegate = object : NSObject(), UIDocumentPickerDelegateProtocol {
+        override fun documentPicker(
+            controller: UIDocumentPickerViewController,
+            didPickDocumentsAtURLs: List<*>
+        ) {
+            val url = didPickDocumentsAtURLs.firstOrNull() as? NSURL
+            onResultUri(url?.absoluteString)
+        }
+
+        override fun documentPickerWasCancelled(controller: UIDocumentPickerViewController) {
+            onResultUri(null)
+        }
+    }
+
     override fun launch() {
         val documentPicker = UIDocumentPickerViewController(
             documentTypes = listOf("public.item"),
             inMode = platform.UIKit.UIDocumentPickerMode.UIDocumentPickerModeImport
         )
-        documentPicker.delegate = this
+        documentPicker.delegate = delegate
         documentPicker.modalPresentationStyle = UIModalPresentationFormSheet
 
         UIApplication.sharedApplication.keyWindow?.rootViewController?.presentViewController(
@@ -146,18 +161,7 @@ class IOSFilePickerLauncher(
             completion = null
         )
     }
-
-    override fun documentPicker(
-        controller: UIDocumentPickerViewController,
-        didPickDocumentsAtURLs: List<*>
-    ) {
-        val url = didPickDocumentsAtURLs.firstOrNull() as? NSURL
-        onResultUri(url?.absoluteString)
-    }
-
-    override fun documentPickerWasCancelled(controller: UIDocumentPickerViewController) {
-        onResultUri(null)
-    }
+}
 }
 
 @Composable
@@ -170,13 +174,28 @@ class IOSFileSaverLauncher(
     private val fileName: String,
     private val mimeType: String,
     private val onResultUri: (String?) -> Unit
-) : FilePickerLauncher, NSObject(), UIDocumentPickerDelegateProtocol {
+) : FilePickerLauncher {
+    
+    private val delegate = object : NSObject(), UIDocumentPickerDelegateProtocol {
+        override fun documentPicker(
+            controller: UIDocumentPickerViewController,
+            didPickDocumentsAtURLs: List<*>
+        ) {
+            val url = didPickDocumentsAtURLs.firstOrNull() as? NSURL
+            onResultUri(url?.absoluteString)
+        }
+
+        override fun documentPickerWasCancelled(controller: UIDocumentPickerViewController) {
+            onResultUri(null)
+        }
+    }
+
     override fun launch() {
         val documentPicker = UIDocumentPickerViewController(
             documentTypes = listOf("public.data"),
             inMode = platform.UIKit.UIDocumentPickerMode.UIDocumentPickerModeExportToService
         )
-        documentPicker.delegate = this
+        documentPicker.delegate = delegate
         documentPicker.modalPresentationStyle = UIModalPresentationFormSheet
 
         UIApplication.sharedApplication.keyWindow?.rootViewController?.presentViewController(
@@ -185,18 +204,7 @@ class IOSFileSaverLauncher(
             completion = null
         )
     }
-
-    override fun documentPicker(
-        controller: UIDocumentPickerViewController,
-        didPickDocumentsAtURLs: List<*>
-    ) {
-        val url = didPickDocumentsAtURLs.firstOrNull() as? NSURL
-        onResultUri(url?.absoluteString)
-    }
-
-    override fun documentPickerWasCancelled(controller: UIDocumentPickerViewController) {
-        onResultUri(null)
-    }
+}
 }
 
 @Composable
@@ -269,10 +277,27 @@ actual fun openEqResult(audioSessionId: Int): OpenEqLauncher = DummyOpenEqLaunch
 
 class IOSPhotoPickerLauncher(
     private val onResultUri: (String?) -> Unit
-) : PhotoPickerLauncher, NSObject(), UIImagePickerControllerDelegateProtocol, UINavigationControllerDelegateProtocol {
+) : PhotoPickerLauncher {
+    
+    private val delegate = object : NSObject(), UIImagePickerControllerDelegateProtocol, UINavigationControllerDelegateProtocol {
+        override fun imagePickerController(
+            picker: UIImagePickerController,
+            didFinishPickingMediaWithInfo: Map<Any?, *>
+        ) {
+            picker.dismissViewControllerAnimated(true, null)
+            val image = didFinishPickingMediaWithInfo[platform.UIKit.UIImagePickerControllerOriginalImage] as? UIImage
+            onResultUri("memory://image")
+        }
+
+        override fun imagePickerControllerDidCancel(picker: UIImagePickerController) {
+            picker.dismissViewControllerAnimated(true, null)
+            onResultUri(null)
+        }
+    }
+
     override fun launch() {
         val picker = UIImagePickerController()
-        picker.delegate = this
+        picker.delegate = delegate
         picker.sourceType = UIImagePickerControllerSourceType.UIImagePickerControllerSourceTypePhotoLibrary
 
         UIApplication.sharedApplication.keyWindow?.rootViewController?.presentViewController(
@@ -281,20 +306,7 @@ class IOSPhotoPickerLauncher(
             completion = null
         )
     }
-
-    override fun imagePickerController(
-        picker: UIImagePickerController,
-        didFinishPickingMediaWithInfo: Map<Any?, *>
-    ) {
-        picker.dismissViewControllerAnimated(true, null)
-        val image = didFinishPickingMediaWithInfo[platform.UIKit.UIImagePickerControllerOriginalImage] as? UIImage
-        onResultUri("memory://image")
-    }
-
-    override fun imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        picker.dismissViewControllerAnimated(true, null)
-        onResultUri(null)
-    }
+}
 }
 
 @Composable
@@ -316,4 +328,5 @@ actual fun HorizontalScrollBar(
     modifier: Modifier,
     scrollState: LazyListState,
 ) {}
+
 
