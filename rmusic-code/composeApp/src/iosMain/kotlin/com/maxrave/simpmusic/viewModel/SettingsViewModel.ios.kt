@@ -1,8 +1,8 @@
 ﻿package com.maxrave.simpmusic.viewModel
 
-import com.maxrave.simpmusic.data.model.SettingsStorageSectionFraction
-import com.maxrave.simpmusic.data.repository.CacheRepository
-import com.maxrave.simpmusic.data.repository.CommonRepository
+import com.maxrave.domain.data.model.SettingsStorageSectionFraction
+import com.maxrave.domain.repository.CacheRepository
+import com.maxrave.domain.repository.CommonRepository
 import com.eygraber.uri.Uri
 
 actual suspend fun calculateDataFraction(cacheRepository: CacheRepository): SettingsStorageSectionFraction? {
@@ -33,4 +33,5 @@ actual fun getFileDir(): String {
 
 actual fun changeLanguageNative(code: String) {
 }
+
 

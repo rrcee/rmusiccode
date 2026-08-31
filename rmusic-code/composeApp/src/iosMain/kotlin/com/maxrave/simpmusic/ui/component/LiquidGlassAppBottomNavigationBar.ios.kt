@@ -1,25 +1,22 @@
 ﻿package com.maxrave.simpmusic.ui.component
 
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
+import com.maxrave.simpmusic.expect.ui.PlatformBackdrop
+import com.maxrave.simpmusic.viewModel.SharedViewModel
+import kotlin.reflect.KClass
 
 @Composable
 actual fun LiquidGlassAppBottomNavigationBar(
-    modifier: Modifier,
-    containerColor: androidx.compose.ui.graphics.Color,
-    contentColor: androidx.compose.ui.graphics.Color,
-    tonalElevation: androidx.compose.ui.unit.Dp,
-    windowInsets: androidx.compose.foundation.layout.WindowInsets,
-    content: @Composable RowScope.() -> Unit
+    startDestination: Any,
+    navController: NavController,
+    backdrop: PlatformBackdrop,
+    viewModel: SharedViewModel,
+    isScrolledToTop: Boolean,
+    showAnalyticsTab: Boolean,
+    showMixForYouTab: Boolean,
+    onOpenNowPlaying: () -> Unit,
+    reloadDestinationIfNeeded: (KClass<*>) -> Unit,
 ) {
-    androidx.compose.material3.NavigationBar(
-        modifier = modifier,
-        containerColor = containerColor,
-        contentColor = contentColor,
-        tonalElevation = tonalElevation,
-        windowInsets = windowInsets,
-        content = content
-    )
+    // Stub
 }
