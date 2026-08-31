@@ -162,7 +162,6 @@ class IOSFilePickerLauncher(
         )
     }
 }
-}
 
 @Composable
 actual fun filePickerResult(
@@ -204,7 +203,6 @@ class IOSFileSaverLauncher(
             completion = null
         )
     }
-}
 }
 
 @Composable
@@ -270,7 +268,6 @@ actual fun MediaPlayerViewWithSubtitle(
 
 class DummyOpenEqLauncher : OpenEqLauncher {
     override fun launch() {}
-}
 
 @Composable
 actual fun openEqResult(audioSessionId: Int): OpenEqLauncher = DummyOpenEqLauncher()
@@ -307,7 +304,6 @@ class IOSPhotoPickerLauncher(
         )
     }
 }
-}
 
 @Composable
 actual fun photoPickerResult(onResultUri: (String?) -> Unit): PhotoPickerLauncher = remember { IOSPhotoPickerLauncher(onResultUri) }
@@ -328,5 +324,6 @@ actual fun HorizontalScrollBar(
     modifier: Modifier,
     scrollState: LazyListState,
 ) {}
+
 
 
