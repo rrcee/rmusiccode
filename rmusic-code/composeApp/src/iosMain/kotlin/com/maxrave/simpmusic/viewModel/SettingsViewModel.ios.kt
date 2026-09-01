@@ -26,9 +26,18 @@ actual fun getPackageName(): String {
     return "com.maxrave.simpmusic"
 }
 
+@OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
 actual fun getFileDir(): String {
-    return ""
+    val documentDirectory = platform.Foundation.NSFileManager.defaultManager.URLForDirectory(
+        directory = platform.Foundation.NSDocumentDirectory,
+        inDomain = platform.Foundation.NSUserDomainMask,
+        appropriateForURL = null,
+        create = false,
+        error = null,
+    )
+    return requireNotNull(documentDirectory?.path)
 }
 
 actual fun changeLanguageNative(code: String) {
 }
+
