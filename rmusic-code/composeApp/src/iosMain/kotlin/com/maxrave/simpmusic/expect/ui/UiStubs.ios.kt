@@ -1,4 +1,4 @@
-﻿package com.maxrave.simpmusic.expect.ui
+package com.maxrave.simpmusic.expect.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -10,6 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asComposeImageBitmap
 import androidx.compose.ui.graphics.asSkiaBitmap
 import androidx.compose.ui.graphics.toComposeImageBitmap
 import androidx.compose.ui.interop.UIKitView
@@ -19,7 +20,6 @@ import com.maxrave.domain.data.model.metadata.Lyrics
 import com.maxrave.domain.data.model.streams.TimeLine
 import kotlinx.cinterop.ExperimentalForeignApi
 import org.jetbrains.skia.EncodedImageFormat
-import org.jetbrains.skia.Image.Companion.makeFromEncoded
 import platform.AVFoundation.*
 import platform.CoreGraphics.CGRectMake
 import platform.Foundation.NSURL
@@ -48,7 +48,10 @@ actual fun ImageBitmap.toByteArray(): ByteArray? {
 }
 
 actual fun Image.toImageBitmap(): ImageBitmap {
-    throw NotImplementedError("Coil3 Image to Compose ImageBitmap mapper not directly available in standard API without painter.")
+    // Return a minimal 1x1 transparent bitmap as safe fallback
+    val bitmap = org.jetbrains.skia.Bitmap()
+    bitmap.allocN32Pixels(1, 1)
+    return bitmap.asComposeImageBitmap()
 }
 
 @Composable
@@ -132,7 +135,7 @@ class IOSFilePickerLauncher(
     private val mimeType: String,
     private val onResultUri: (String?) -> Unit
 ) : FilePickerLauncher {
-    
+
     private val delegate = object : NSObject(), UIDocumentPickerDelegateProtocol {
         override fun documentPicker(
             controller: UIDocumentPickerViewController,
@@ -174,7 +177,7 @@ class IOSFileSaverLauncher(
     private val mimeType: String,
     private val onResultUri: (String?) -> Unit
 ) : FilePickerLauncher {
-    
+
     private val delegate = object : NSObject(), UIDocumentPickerDelegateProtocol {
         override fun documentPicker(
             controller: UIDocumentPickerViewController,
@@ -276,7 +279,7 @@ actual fun openEqResult(audioSessionId: Int): OpenEqLauncher = DummyOpenEqLaunch
 class IOSPhotoPickerLauncher(
     private val onResultUri: (String?) -> Unit
 ) : PhotoPickerLauncher {
-    
+
     private val delegate = object : NSObject(), UIImagePickerControllerDelegateProtocol, UINavigationControllerDelegateProtocol {
         override fun imagePickerController(
             picker: UIImagePickerController,
@@ -325,7 +328,3 @@ actual fun HorizontalScrollBar(
     modifier: Modifier,
     scrollState: LazyListState,
 ) {}
-
-
-
-
