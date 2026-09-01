@@ -33,6 +33,6 @@ fun MainViewController() = ComposeUIViewController {
     App()
 }
 
-fun initApp() {
+fun startKoinDI() {
     initKoin()
 }
