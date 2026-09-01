@@ -1,8 +1,13 @@
-package com.maxrave.simpmusic.viewModel
+﻿package com.maxrave.simpmusic.viewModel
 
 import com.maxrave.domain.repository.CacheRepository
 import com.maxrave.domain.repository.CommonRepository
 import com.eygraber.uri.Uri
+import platform.Foundation.NSFileManager
+import platform.Foundation.NSDocumentDirectory
+import platform.Foundation.NSUserDomainMask
+import platform.Foundation.NSURL
+import kotlinx.cinterop.ExperimentalForeignApi
 
 actual suspend fun calculateDataFraction(cacheRepository: CacheRepository): SettingsStorageSectionFraction? {
     return null
@@ -26,7 +31,7 @@ actual fun getPackageName(): String {
     return "com.maxrave.simpmusic"
 }
 
-@OptIn(kotlinx.cinterop.ExperimentalForeignApi::class)
+@OptIn(ExperimentalForeignApi::class)
 actual fun getFileDir(): String {
     val paths = NSFileManager.defaultManager.URLsForDirectory(NSDocumentDirectory, inDomains = NSUserDomainMask)
     val documentDirectory = paths.firstOrNull() as? NSURL
