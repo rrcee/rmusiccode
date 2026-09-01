@@ -3,10 +3,9 @@
 import com.maxrave.domain.repository.CacheRepository
 import com.maxrave.domain.repository.CommonRepository
 import com.eygraber.uri.Uri
-import platform.Foundation.NSFileManager
 import platform.Foundation.NSDocumentDirectory
+import platform.Foundation.NSSearchPathForDirectoriesInDomains
 import platform.Foundation.NSUserDomainMask
-import platform.Foundation.NSURL
 import kotlinx.cinterop.ExperimentalForeignApi
 
 actual suspend fun calculateDataFraction(cacheRepository: CacheRepository): SettingsStorageSectionFraction? {
@@ -33,9 +32,8 @@ actual fun getPackageName(): String {
 
 @OptIn(ExperimentalForeignApi::class)
 actual fun getFileDir(): String {
-    val paths = NSFileManager.defaultManager.URLsForDirectory(NSDocumentDirectory, inDomains = NSUserDomainMask)
-    val documentDirectory = paths.firstOrNull() as? NSURL
-    return requireNotNull(documentDirectory?.path)
+    val paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true)
+    return paths.first() as String
 }
 
 actual fun changeLanguageNative(code: String) {

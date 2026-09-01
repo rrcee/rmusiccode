@@ -5,8 +5,7 @@ import androidx.room.RoomDatabase
 import com.maxrave.common.DB_NAME
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Foundation.NSDocumentDirectory
-import platform.Foundation.NSFileManager
-import platform.Foundation.NSURL
+import platform.Foundation.NSSearchPathForDirectoriesInDomains
 import platform.Foundation.NSUserDomainMask
 
 actual fun getDatabaseBuilder(converters: Converters): RoomDatabase.Builder<MusicDatabase> {
@@ -18,9 +17,8 @@ actual fun getDatabaseBuilder(converters: Converters): RoomDatabase.Builder<Musi
 
 @OptIn(ExperimentalForeignApi::class)
 fun documentDirectory(): String {
-    val paths = NSFileManager.defaultManager.URLsForDirectory(NSDocumentDirectory, inDomains = NSUserDomainMask)
-    val documentDirectory = paths.firstOrNull() as? NSURL
-    return requireNotNull(documentDirectory?.path)
+    val paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true)
+    return paths.first() as String
 }
 
 actual fun getDatabasePath(): String {

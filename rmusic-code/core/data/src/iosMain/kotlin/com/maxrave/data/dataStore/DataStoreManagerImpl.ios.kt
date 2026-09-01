@@ -6,15 +6,13 @@ import com.maxrave.common.SETTINGS_FILENAME
 import createDataStore
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Foundation.NSDocumentDirectory
-import platform.Foundation.NSFileManager
-import platform.Foundation.NSURL
+import platform.Foundation.NSSearchPathForDirectoriesInDomains
 import platform.Foundation.NSUserDomainMask
 
 @OptIn(ExperimentalForeignApi::class)
 actual fun createDataStoreInstance(): DataStore<Preferences> = createDataStore(
     producePath = {
-        val paths = NSFileManager.defaultManager.URLsForDirectory(NSDocumentDirectory, inDomains = NSUserDomainMask)
-        val documentDirectory = paths.firstOrNull() as? NSURL
-        requireNotNull(documentDirectory?.path) + "/$SETTINGS_FILENAME.preferences_pb"
+        val paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true)
+        (paths.first() as String) + "/$SETTINGS_FILENAME.preferences_pb"
     }
 )
