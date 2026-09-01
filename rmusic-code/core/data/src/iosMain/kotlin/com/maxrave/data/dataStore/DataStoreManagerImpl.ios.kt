@@ -1,4 +1,4 @@
-package com.maxrave.data.dataStore
+﻿package com.maxrave.data.dataStore
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -12,14 +12,9 @@ import platform.Foundation.NSUserDomainMask
 
 @OptIn(ExperimentalForeignApi::class)
 actual fun createDataStoreInstance(): DataStore<Preferences> = createDataStore(
-producePath = {
-    val documentDirectory: NSURL? = NSFileManager.defaultManager.URLForDirectory(
-        directory = NSDocumentDirectory,
-        inDomain = NSUserDomainMask,
-        appropriateForURL = null,
-        create = false,
-        error = null,
-    )
-    requireNotNull(documentDirectory).path + "/$SETTINGS_FILENAME.preferences_pb"
-}
+    producePath = {
+        val paths = NSFileManager.defaultManager.URLsForDirectory(NSDocumentDirectory, inDomains = NSUserDomainMask)
+        val documentDirectory = paths.firstOrNull() as? NSURL
+        requireNotNull(documentDirectory?.path) + "/$SETTINGS_FILENAME.preferences_pb"
+    }
 )
